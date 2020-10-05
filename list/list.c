@@ -15,8 +15,8 @@ bool list_add_node(struct node** h, struct node* n)
 {
     assert(h != NULL);
     assert(n != NULL);
-    n->next = (*h);
-    (*h) = n;
+    n->next = (*h); //(*h)右值表示(*h)内存的值
+    (*h) = n; //左值表示(*h)内存的地址
     return true;
 }
 
