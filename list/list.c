@@ -25,7 +25,7 @@ void list_print(struct node* h)
     while (h != NULL)
     {
         printf("->%d", h->data);
-        h = h->next;
+        h = h->next; //循环递增条件遗漏
     }
     printf("\n");
 }
