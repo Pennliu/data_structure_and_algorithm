@@ -52,6 +52,10 @@ const struct node* list_find_middle(const struct node* h) {
     return slow;
 }
 
+/*
+ * *s取到的是下一个节点的地址，pre需求是本节点
+ *
+ * */
 struct node* list_find_middle_pre(struct node** h) {
     struct node **f, **s;
     f = s = h;
@@ -61,7 +65,8 @@ struct node* list_find_middle_pre(struct node** h) {
         s = &((*s)->next);
     }
     //return *s;
-    return (struct node*)((unsigned long)s-(unsigned long)(((struct node*)0)->next));
+
+    return (struct node*)((unsigned long)s-(unsigned long)(&(((struct node*)0)->next)));
 }
 //图形化struct node**，放到内存考虑，是一个空间，指向链表头结点
 //链表定义：头结点为struct node*，后续结点为struct node
