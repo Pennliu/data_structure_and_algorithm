@@ -36,6 +36,10 @@ void list_reverse(struct node** h)
     *h = pre;
 }
 
+/*
+ * 计算范围不包括空的头结点
+ * 如果是偶数，那么是中间靠后的点
+ */
 const struct node* list_find_middle(const struct node* h) {
     assert(h != NULL);
     const struct node *fast, *slow;
@@ -46,6 +50,17 @@ const struct node* list_find_middle(const struct node* h) {
         slow = slow->next;
     }
     return slow;
+}
+
+struct node* list_find_middle_pre(struct node** h) {
+    struct node **f, **s;
+    f = s = h;
+
+    while ((*f) && (*f)->next) {
+        f = &((*f)->next->next);
+        s = &((*s)->next);
+    }
+    return *s;
 }
 //图形化struct node**，放到内存考虑，是一个空间，指向链表头结点
 //链表定义：头结点为struct node*，后续结点为struct node
@@ -75,6 +90,7 @@ struct node* list_alloc_node(int key, struct node* next) {
     }
     return p;
 }
+
 
 bool list_insert_node_before(struct node** h, int src, int key) {
     struct node** p = list_find_pre(h, src);
@@ -127,8 +143,12 @@ int main()
     assert(true == ret);
     ret = list_insert_node_before(&head, 0, 9);
     assert(true == ret);
+    ret = list_insert_node_before(&head, 0, 10);
+    assert(true == ret);
     list_print(head);
     const struct node* f = list_find_middle(head);
+    printf("middle node is %d\n", f->data);
+    f = list_find_middle_pre(&head);
     printf("middle node is %d\n", f->data);
     return 0;
 }
