@@ -54,9 +54,14 @@ const struct node* list_find_middle(const struct node* h) {
 
 /*
  * *s取到的是下一个节点的地址，pre需求是本节点
+ * 但是在头指针时会异常，因为此时没有对应的struct node，正确写法是不能指头指针，如何不能指头指针，不能少于2个节点
+ * 思路变成判断少于2个节点则返回NULL
  *
  * */
 struct node* list_find_middle_pre(struct node** h) {
+    assert(h != NULL);
+    if ((*h) == NULL) return NULL;
+    if ((*h)->next == NULL) return NULL;
     struct node **f, **s;
     f = s = h;
 
@@ -124,6 +129,8 @@ int main()
     //add a node from head
     //delete a node  from head
     struct node* head = NULL;
+    struct node* err_addr = list_find_middle_pre(&head);
+    printf("error addr: %lx\n", (unsigned long)err_addr);
     struct node* n = (struct node*)malloc(sizeof(struct node));
     //memset(n, 0, sizeof(struct node));
     n->data = 0;
