@@ -182,11 +182,8 @@ int test_all()
     return 0;
 }
 
-<<<<<<< Updated upstream
-=======
 int main()
 {
     test_list_find_middle();
     return 0;
 }
->>>>>>> Stashed changes
