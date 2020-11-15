@@ -46,9 +46,11 @@ const struct node* list_find_middle(const struct node* h) {
     fast = slow = h;
 
     while (fast && fast->next) {
+        printf("fast is %d, slow is %d\n", fast->data, slow->data);
         fast = fast->next->next;
         slow = slow->next;
     }
+    printf("slow res is %d\n", slow->data);
     return slow;
 }
 
@@ -124,7 +126,20 @@ void list_print(struct node* h)
     printf("\n");
 }
 
-int main()
+bool list_add_elm(struct node** h, int key) {
+    struct node* e = list_alloc_node(key, NULL);
+    if (e == NULL) return false;
+    return list_add_node(h, e);
+}
+void test_list_find_middle() {
+    struct node* h = NULL;
+    for (int i = 0; i < 4; i++) 
+        list_add_elm(&h, i);
+    const struct node* e = list_find_middle(h);
+    printf("==================%d\n", e->data);
+    list_print(h);
+}
+int test_all()
 {
     //create list
     //add a node from head
@@ -167,3 +182,11 @@ int main()
     return 0;
 }
 
+<<<<<<< Updated upstream
+=======
+int main()
+{
+    test_list_find_middle();
+    return 0;
+}
+>>>>>>> Stashed changes
